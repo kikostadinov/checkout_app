@@ -1,11 +1,23 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './components/HomePage'
+import NotFoundPage from './components/NotFoundPage';
+import Header from './components/Header';
+import CartPage from './components/CartPage';
+
 import './App.css'
 
 function App() {
 
   return (
     <>
-      <HomePage />
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" index element={<HomePage />} />
+          <Route path="/cart" index element={<CartPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Router>
     </>
   )
 }
