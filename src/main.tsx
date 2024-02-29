@@ -7,10 +7,12 @@ import { Provider } from 'react-redux'
 import { productsApi } from './features/productsApi.tsx';
 import { countriesApi } from './features/countriesApi.tsx';
 import cartReducer from './features/cartSlice.tsx';
+import countriesReducer from './features/countriesSlice.tsx';
 
 const store = configureStore({
   reducer: {
     cart: cartReducer,
+    countries: countriesReducer,
     [productsApi.reducerPath]: productsApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,
   },
