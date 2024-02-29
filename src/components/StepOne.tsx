@@ -22,7 +22,7 @@ export default function StepOne() {
   const [userData, setUserData] = useState<IFormData>(
     { name: '', email: '', country: '', city: '' }
   );
-  const { control, formState: { errors, isValidating },
+  const { control, getValues, formState: { errors, isValidating },
   } = useForm<IFormData>();
   const [showNextStep, setShowNextStep] = useState(false);
   const [isTriggered, setTriggered] = useState(false);
@@ -42,6 +42,11 @@ export default function StepOne() {
 
   const handleCountryChange = (country: string) => {
     dispatch(selectCountry(country));
+  };
+
+  const handleButtonClick = () => {
+    const values = getValues();
+    setUserData(values);
   };
 
   return (
@@ -117,6 +122,7 @@ export default function StepOne() {
             <Button
               type="primary"
               onClick={() => {
+                handleButtonClick();
                 setTriggered(true);
               }}
             >
