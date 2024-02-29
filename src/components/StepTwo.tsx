@@ -1,4 +1,6 @@
-export default function StepTwo({ userData }) {
+import InputField from "./InputField";
+
+export default function StepTwo({ userData, control, errors }) {
 
   return (
     <div className="step-two">
@@ -13,6 +15,15 @@ export default function StepTwo({ userData }) {
           </div>
         )
         : null}
+      <div className="promo-code">
+        <InputField
+          label={"Promo code (optional)"}
+          name="promoCode"
+          control={control}
+          errors={errors}
+          placeholder="Enter your name"
+        />
+      </div>
     </div>
   );
 }
