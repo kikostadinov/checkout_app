@@ -6,6 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import InputField from './InputField';
 import { AutoComplete, Button, Form } from 'antd';
+import StepTwo from './StepTwo';
 
 interface IFormData {
   name: string;
@@ -18,18 +19,16 @@ export default function StepOne() {
   const { data: countries, isFetching } = useGetCountriesQuery({});
   const dispatch = useDispatch();
   const cities: string[] = useSelector(selectCitiesOfSelectedCountry);
+  const [userData, setUserData] = useState<IFormData>(
+    { name: '', email: '', country: '', city: '' }
+  );
   const { control, formState: { errors, isValidating },
   } = useForm<IFormData>();
   const [showNextStep, setShowNextStep] = useState(false);
   const [isTriggered, setTriggered] = useState(false);
 
   useEffect(() => {
-    if (isTriggered &&
-      !errors.name &&
-      !errors.email &&
-      !errors.country &&
-      !errors.city &&
-      !isValidating) {
+    if (isTriggered && !isValidating) {
       setShowNextStep(true);
       setTriggered(false);
     }
@@ -50,7 +49,11 @@ export default function StepOne() {
       <form>
         {showNextStep ? (
           <>
-            Step two
+            <StepTwo
+              userData={userData}
+              control={control}
+              errors={errors}
+            />
           </>
         ) : (
           <>
@@ -113,6 +116,9 @@ export default function StepOne() {
 
             <Button
               type="primary"
+              onClick={() => {
+                setTriggered(true);
+              }}
             >
               Next
             </Button>
