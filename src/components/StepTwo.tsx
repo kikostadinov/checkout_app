@@ -1,6 +1,14 @@
 import InputField from "./InputField";
+import { IUser } from "../interfaces";
+import { Control, FieldValues, DeepMap, FieldError } from 'react-hook-form';
 
-export default function StepTwo({ userData, control, errors }) {
+interface IStepTwoProps {
+  userData: IUser;
+  control: Control<FieldValues>;
+  errors: DeepMap<FieldValues, FieldError>;
+}
+
+export default function StepTwo({ userData, control, errors }: IStepTwoProps) {
 
   return (
     <div className="step-two">

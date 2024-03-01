@@ -2,11 +2,12 @@ import { useGetCountriesQuery } from '../features/countriesApi';
 import { selectCountry } from '../features/countriesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCitiesOfSelectedCountry } from '../features/countriesSlice';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import InputField from './InputField';
 import { AutoComplete, Button, Form, Modal } from 'antd';
 import StepTwo from './StepTwo';
+import { ICountry } from '../interfaces';
 import { useNavigate } from 'react-router-dom';
 import { addUserData } from '../features/userSlice';
 
@@ -25,7 +26,7 @@ export default function StepOne() {
     { name: '', email: '', country: '', city: '' }
   );
   const { control, trigger, getValues, handleSubmit, formState: { errors, isValidating },
-  } = useForm<IFormData>();
+  } = useForm<IFormData>({ defaultValues: userData });
   const [showNextStep, setShowNextStep] = useState(false);
   const [isTriggered, setTriggered] = useState(false);
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ export default function StepOne() {
 
   const countriesOptions = isFetching
     ? []
-    : countries.data.map((country) => ({ value: country.country }))
+    : countries.data.map((country: ICountry) => ({ value: country.country }))
 
   const cityOptions = cities?.map((city: string) => ({ value: city })) || [];
 
@@ -61,7 +62,7 @@ export default function StepOne() {
     setShowNextStep(false);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<IFormData> = (data) => {
     console.log(data, 'submit');
     dispatch(addUserData(data));
     navigate('/receipt');

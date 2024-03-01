@@ -1,10 +1,11 @@
 
 import { useSelector } from "react-redux";
+import { IProduct, IRootState } from "../interfaces";
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 
 export default function ReceiptPage() {
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state: IRootState) => state.cart);
   const navigate = useNavigate();
 
   const VAT_MULTIPLIER: number = 1.2;
@@ -16,7 +17,7 @@ export default function ReceiptPage() {
       <p>Thank you for your purchase!</p>
 
       <ul>
-        {cart.items.map((item) => (
+        {cart.items.map((item: IProduct) => (
           <li key={item.id}>{item.title} - ${item.price}</li>
         ))}
       </ul>
