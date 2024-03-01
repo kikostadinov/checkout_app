@@ -8,6 +8,7 @@ import InputField from './InputField';
 import { AutoComplete, Button, Form, Modal } from 'antd';
 import StepTwo from './StepTwo';
 import { useNavigate } from 'react-router-dom';
+import { addUserData } from '../features/userSlice';
 
 interface IFormData {
   name: string;
@@ -62,15 +63,12 @@ export default function StepOne() {
 
   const onSubmit = (data) => {
     console.log(data, 'submit');
+    dispatch(addUserData(data));
     navigate('/receipt');
   };
 
   const handleConfirm = () => {
     handleSubmit(onSubmit)();
-  };
-
-  const handleCancel = () => {
-    console.log('Order canceled');
   };
 
   return (
@@ -92,7 +90,6 @@ export default function StepOne() {
                 onClick={() => Modal.confirm({
                   title: 'Confirm details',
                   onOk: () => handleConfirm(),
-                  onCancel: () => handleCancel(),
                 })}
               >
                 Complete the order

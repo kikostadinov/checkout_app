@@ -13,3 +13,15 @@ export interface ICartState {
 export interface IRootState {
   cart: ICartState;
 }
+
+// Form fields //
+export interface IAddress {
+  country: string;
+  city: string;
+}
+
+export interface IUser extends IAddress {
+  name: string;
+  email: string;
+  promoCode?: string;
+}

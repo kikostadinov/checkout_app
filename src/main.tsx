@@ -8,11 +8,13 @@ import { productsApi } from './features/productsApi.tsx';
 import { countriesApi } from './features/countriesApi.tsx';
 import cartReducer from './features/cartSlice.tsx';
 import countriesReducer from './features/countriesSlice.tsx';
+import userReducer from './features/userSlice.tsx';
 
 const store = configureStore({
   reducer: {
     cart: cartReducer,
     countries: countriesReducer,
+    user: userReducer,
     [productsApi.reducerPath]: productsApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,
   },
