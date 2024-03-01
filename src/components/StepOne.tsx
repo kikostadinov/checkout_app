@@ -156,6 +156,9 @@ export default function StepOne() {
               {errors.city && <p role="alert">{errors.city.message}</p>}
             </Form.Item>
 
+            <Button onClick={() => navigate('/')}>
+              Back
+            </Button>
             <Button
               type="primary"
               onClick={() => {
