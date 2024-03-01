@@ -22,13 +22,18 @@ export default function StepOne() {
   const [userData, setUserData] = useState<IFormData>(
     { name: '', email: '', country: '', city: '' }
   );
-  const { control, getValues, formState: { errors, isValidating },
+  const { control, trigger, getValues, formState: { errors, isValidating },
   } = useForm<IFormData>();
   const [showNextStep, setShowNextStep] = useState(false);
   const [isTriggered, setTriggered] = useState(false);
 
   useEffect(() => {
-    if (isTriggered && !isValidating) {
+    if (isTriggered &&
+      !errors.name &&
+      !errors.email &&
+      !errors.country &&
+      !errors.city &&
+      !isValidating) {
       setShowNextStep(true);
       setTriggered(false);
     }
@@ -151,6 +156,7 @@ export default function StepOne() {
               onClick={() => {
                 handleButtonClick();
                 setTriggered(true);
+                trigger(["name", "email", "country", "city"]);
               }}
             >
               Next
