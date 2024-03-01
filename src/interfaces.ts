@@ -11,11 +11,17 @@ export interface ICartState {
   error: null | string | undefined;
 }
 
-export interface IRootState {
-  cart: ICartState;
+export interface IUserState {
+  items: IUser;
+  status: null | 'pending' | 'fulfilled' | 'rejected';
+  error: null | string | undefined;
 }
 
-// Form fields //
+export interface IRootState {
+  cart: ICartState;
+  user: IUserState;
+}
+
 export interface IAddress {
   country: string;
   city: string;

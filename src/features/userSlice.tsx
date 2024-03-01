@@ -1,11 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IUser } from '../interfaces';
-
-interface IUserState {
-  items: IUser;
-  status: null | 'pending' | 'fulfilled' | 'rejected';
-  error: null | string | undefined;
-}
+import { IUser, IUserState } from '../interfaces';
 
 const initialState: IUserState = {
   items: {} as IUser,

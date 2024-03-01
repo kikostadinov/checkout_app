@@ -29,6 +29,12 @@ export default function StepTwo({ userData, control, errors }: IStepTwoProps) {
           label={"Promo code (optional)"}
           name="promoCode"
           control={control}
+          rules={{
+            pattern: {
+              value: /^PROMO30$/i,
+              message: 'Invalid promo code'
+            }
+          }}
           errors={errors}
           placeholder="Enter your name"
         />
