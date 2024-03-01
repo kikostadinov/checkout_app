@@ -4,6 +4,7 @@ import { productsApi } from "./productsApi";
 
 const initialState: ICartState = {
   items: [],
+  totalAmount: 0,
   status: null,
   error: null,
 };
@@ -11,14 +12,7 @@ const initialState: ICartState = {
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {
-    addToCart(state, action) {
-      state.items.push(...action.payload);
-    },
-    clearCart(state) {
-      state.items = [];
-    }
-  },
+  reducers: {},
   // Save preselected products to the cart
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -29,7 +23,5 @@ const cartSlice = createSlice({
     );
   },
 });
-
-export const { addToCart, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

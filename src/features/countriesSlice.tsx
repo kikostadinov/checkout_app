@@ -1,7 +1,15 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { countriesApi } from './countriesApi';
+import { ICountry } from '../interfaces';
 
-const initialState = {
+interface ICountriesState {
+  items: ICountry[];
+  selectedCountry: string;
+  status: null | 'pending' | 'fulfilled' | 'rejected';
+  error: null | string | undefined;
+}
+
+const initialState: ICountriesState = {
   items: [],
   selectedCountry: '',
   status: null,
@@ -29,7 +37,7 @@ const countriesSlice = createSlice({
 export const selectCitiesOfSelectedCountry = createSelector(
   [(state) => state.countries.items, (state) => state.countries.selectedCountry],
   (countries, selectedCountry) => {
-    const country = countries.find((country) => country.country === selectedCountry);
+    const country = countries.find((country: ICountry) => country.country === selectedCountry);
     return country ? country.cities : [];
   }
 );
