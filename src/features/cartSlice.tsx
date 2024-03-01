@@ -19,6 +19,7 @@ const cartSlice = createSlice({
       productsApi.endpoints.getAllProducts.matchFulfilled,
       (state, action) => {
         state.items = action.payload;
+        state.totalAmount = state.items.reduce((accumulator, currentValue) => accumulator + currentValue.price, 0);
       }
     );
   },
