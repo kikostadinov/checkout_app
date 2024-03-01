@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import InputField from './InputField';
 import { AutoComplete, Button, Form, Modal } from 'antd';
 import StepTwo from './StepTwo';
+import { useNavigate } from 'react-router-dom';
 
 interface IFormData {
   name: string;
@@ -22,10 +23,11 @@ export default function StepOne() {
   const [userData, setUserData] = useState<IFormData>(
     { name: '', email: '', country: '', city: '' }
   );
-  const { control, trigger, getValues, formState: { errors, isValidating },
+  const { control, trigger, getValues, handleSubmit, formState: { errors, isValidating },
   } = useForm<IFormData>();
   const [showNextStep, setShowNextStep] = useState(false);
   const [isTriggered, setTriggered] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isTriggered &&
@@ -58,8 +60,13 @@ export default function StepOne() {
     setShowNextStep(false);
   };
 
+  const onSubmit = (data) => {
+    console.log(data, 'submit');
+    navigate('/receipt');
+  };
+
   const handleConfirm = () => {
-    console.log('Order completed');
+    handleSubmit(onSubmit)();
   };
 
   const handleCancel = () => {

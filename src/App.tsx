@@ -6,6 +6,7 @@ import CartPage from './components/CartPage';
 import CheckoutPage from './components/CheckoutPage';
 
 import './App.css'
+import ReceiptPage from './components/ReceiptPage';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" index element={<HomePage />} />
           <Route path="/cart" index element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/receipt" element={<ReceiptPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
