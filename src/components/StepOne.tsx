@@ -19,6 +19,11 @@ interface IFormData {
   street: string;
 }
 
+const layout = {
+  labelCol: { span: 5 },
+  wrapperCol: { span: 19 },
+};
+
 export default function StepOne() {
   const { data: countries, isFetching } = useGetCountriesQuery({});
   const dispatch = useDispatch();
@@ -27,7 +32,7 @@ export default function StepOne() {
     { name: '', email: '', country: '', city: '', street: '' }
   );
   const { control, trigger, getValues, handleSubmit, formState: { errors, isValidating },
-  } = useForm<IFormData>({ defaultValues: userData });
+  } = useForm<IFormData>({ defaultValues: userData, mode: 'onBlur' });
   const [showNextStep, setShowNextStep] = useState(false);
   const [isTriggered, setTriggered] = useState(false);
   const navigate = useNavigate();
@@ -75,7 +80,7 @@ export default function StepOne() {
 
   return (
     <div className="step-one">
-      <form>
+      <Form {...layout}>
         {showNextStep ? (
           <>
             <StepTwo
@@ -107,7 +112,6 @@ export default function StepOne() {
               control={control}
               rules={{ required: "Name is required" }}
               errors={errors}
-              placeholder="Enter your name"
             />
 
             <InputField
@@ -122,74 +126,72 @@ export default function StepOne() {
               }}
               control={control}
               errors={errors}
-              placeholder="Enter your email"
             />
 
-            <fieldset>
-              <label>Address</label>
-              <Form.Item label="Country" rules={[{ required: true }]}>
-                <Controller
-                  name="country"
-                  control={control}
-                  render={({ field }) => (
-                    <AutoComplete
-                      options={countriesOptions}
-                      style={{ width: 200 }}
-                      onSelect={handleCountryChange}
-                      filterOption={(inputValue, option) =>
-                        option?.value?.toString().toUpperCase().indexOf(inputValue.toString().toUpperCase()) !== -1}
-                      placeholder="Select country"
-                      {...field}
-                    />
-                  )}
-                />
-                {errors.country && <p role="alert">{errors.country.message}</p>}
-              </Form.Item>
-
-              <Form.Item label="City" rules={[{ required: true }]}>
-                <Controller
-                  name="city"
-                  control={control}
-                  render={({ field }) => (
-                    <AutoComplete
-                      options={cityOptions}
-                      style={{ width: 200 }}
-                      onSelect={handleCountryChange}
-                      filterOption={(inputValue, option) =>
-                        option?.value?.toString().toUpperCase().indexOf(inputValue.toString().toUpperCase()) !== -1}
-                      placeholder="Select city"
-                      {...field}
-                    />
-                  )}
-                />
-                {errors.city && <p role="alert">{errors.city.message}</p>}
-              </Form.Item>
-
-              <InputField
-                label="Street"
-                name="street"
-                rules={{ required: "Street is required" }}
+            <Form.Item label="Country" rules={[{ required: true }]}>
+              <Controller
+                name="country"
                 control={control}
-                errors={errors}
+                rules={{ required: "Country is required" }}
+                render={({ field }) => (
+                  <AutoComplete
+                    options={countriesOptions}
+                    onSelect={handleCountryChange}
+                    filterOption={(inputValue, option) =>
+                      option?.value?.toString().toUpperCase().indexOf(inputValue.toString().toUpperCase()) !== -1}
+                    placeholder="Select country"
+                    {...field}
+                  />
+                )}
               />
-            </fieldset>
+              {errors.country && <p className="error-msg" role="alert">{errors.country.message}</p>}
+            </Form.Item>
 
-            <Button onClick={() => navigate('/')}>
-              Back
-            </Button>
-            <Button
-              type="primary"
-              onClick={() => {
-                handleButtonClick();
-                setTriggered(true);
-                trigger(["name", "email", "country", "city"]);
-              }}
-            >
-              Next
-            </Button>
+            <Form.Item label="City" rules={[{ required: true }]}>
+              <Controller
+                name="city"
+                control={control}
+                rules={{ required: "City is required" }}
+                render={({ field }) => (
+                  <AutoComplete
+                    options={cityOptions}
+                    onSelect={handleCountryChange}
+                    filterOption={(inputValue, option) =>
+                      option?.value?.toString().toUpperCase().indexOf(inputValue.toString().toUpperCase()) !== -1}
+                    placeholder="Select city"
+                    {...field}
+                  />
+                )}
+              />
+              {errors.city && <p className="error-msg" role="alert">{errors.city.message}</p>}
+            </Form.Item>
+
+            <InputField
+              label={"Street"}
+              name="street"
+              control={control}
+              rules={{ required: "Street is required" }}
+              errors={errors}
+            />
+
+            <div className="btn-container">
+              <Button onClick={() => navigate('/')}>
+                Back
+              </Button>
+              <Button
+                type="primary"
+                onClick={() => {
+                  handleButtonClick();
+                  setTriggered(true);
+                  trigger(["name", "email", "country", "city"]);
+                }}
+              >
+                Next
+              </Button>
+            </div>
           </>
         )}
-      </form>
+      </Form>
     </div>
   );
 }
