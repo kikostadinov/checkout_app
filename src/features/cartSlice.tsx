@@ -13,7 +13,7 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {},
-  // Save preselected products to the cart
+  // Save preselected products to the cart. Dev only!
   extraReducers: (builder) => {
     builder.addMatcher(
       productsApi.endpoints.getAllProducts.matchFulfilled,

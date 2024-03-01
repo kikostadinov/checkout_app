@@ -1,6 +1,6 @@
-import InputField from "./InputField";
 import { IUser } from "../interfaces";
-import { Control, FieldValues, DeepMap, FieldError } from 'react-hook-form';
+import { Control, FieldValues, DeepMap, FieldError, Controller } from 'react-hook-form';
+import { Col, Form, Input, Row } from 'antd';
 
 interface IStepTwoProps {
   userData: IUser;
@@ -12,33 +12,50 @@ export default function StepTwo({ userData, control, errors }: IStepTwoProps) {
 
   return (
     <div className="step-two">
-      <h2>Confirm details</h2>
+      <h3>Confirm details</h3>
       {userData
         ? (
-          <div>
-            <p>{userData.name}</p>
-            <p>{userData.email}</p>
-            <p>{userData.country}</p>
-            <p>{userData.city}</p>
-            <p>{userData.street}</p>
+          <div className="user-data">
+            <Row>
+              <Col span={6}>Name:</Col>
+              <Col>{userData.name}</Col>
+            </Row>
+            <Row>
+              <Col span={6}>Email:</Col>
+              <Col>{userData.email}</Col>
+            </Row>
+            <Row>
+              <Col span={6}>Country:</Col>
+              <Col>{userData.country}</Col>
+            </Row>
+            <Row>
+              <Col span={6}>City:</Col>
+              <Col>{userData.city}</Col>
+            </Row>
+            <Row>
+              <Col span={6}>Street:</Col>
+              <Col>{userData.street}</Col>
+            </Row>
+            <Form.Item
+              label={"Promo code"}
+              labelCol={{ span: 6 }}
+            >
+              <Controller
+                name="promoCode"
+                rules={{
+                  pattern: {
+                    value: /^PROMO30$/i,
+                    message: 'Invalid promo code'
+                  }
+                }}
+                control={control}
+                render={({ field }) => <Input {...field} style={{ maxWidth: '200px' }} />}
+              />
+              {errors.promoCode && <p className="error-msg" role="alert">{errors.promoCode.message}</p>}
+            </Form.Item>
           </div>
         )
         : null}
-      <div className="promo-code">
-        <InputField
-          label={"Promo code (optional)"}
-          name="promoCode"
-          control={control}
-          rules={{
-            pattern: {
-              value: /^PROMO30$/i,
-              message: 'Invalid promo code'
-            }
-          }}
-          errors={errors}
-          placeholder="Enter your name"
-        />
-      </div>
     </div>
   );
 }

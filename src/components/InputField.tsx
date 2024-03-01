@@ -2,6 +2,7 @@ import { Form, Input } from "antd";
 import { Controller } from "react-hook-form";
 
 export default function InputField({ label, name, errors, ...rest }) {
+
   return (
     <Form.Item label={label}>
       <Controller
@@ -9,7 +10,7 @@ export default function InputField({ label, name, errors, ...rest }) {
         render={({ field }) => <Input {...field} />}
         {...rest}
       />
-      {errors[name] && <p role="alert">{errors[name].message}</p>}
+      {errors[name] && <p className="error-msg" role="alert">{errors[name].message}</p>}
     </Form.Item>
   );
 }

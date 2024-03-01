@@ -1,4 +1,3 @@
-
 import { useSelector } from "react-redux";
 import { IProduct, IRootState } from "../interfaces";
 import { useNavigate } from "react-router-dom";
@@ -17,23 +16,44 @@ export default function ReceiptPage() {
 
   const totalAmount = cart.totalAmount * VAT_MULTIPLIER * (1 - promoCodeDiscount);
 
-  console.log(promoCodeDiscount, 'promoCodeDiscount');
-  console.log(promoCodePersentage, 'promoCodePersentage');
-
   return (
     <div className="receipt-page">
       <h2>Receipt</h2>
-      <p>Thank you for your purchase!</p>
-      <br />
-      <ul>
-        {cart.items.map((item: IProduct) => (
-          <li key={item.id}>{item.title} - ${item.price}</li>
-        ))}
-      </ul>
-      <div>VAT: {vatPercentage}%</div>
-      <div>Promo code: - {promoCodePersentage}%</div>
-      <div>Total cost: ${(totalAmount).toFixed(2)}</div>
-      <Button onClick={() => navigate('/')}>Go to home</Button>
+      {cart.items.length === 0 ?
+        <p>Oops, no items added.</p>
+        : (
+          <>
+            <h3>Thank you for your purchase!</h3>
+            <br />
+            <ul className="receipt-items">
+              {cart.items.map((item: IProduct) => (
+                <li key={item.id}>
+                  <span>{item.title}</span>
+                  <span>${item.price}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="final-price">
+              <div>VAT: {vatPercentage}%</div>
+              <div>
+                <i>Promo code: - {promoCodePersentage}%</i>
+              </div>
+              <div>
+                <strong>
+                  Total cost: ${(totalAmount).toFixed(2)}
+                </strong>
+              </div>
+            </div>
+            <div className="btn-container">
+              <Button
+                type="primary"
+                onClick={() => navigate('/')}>
+                Go to home
+              </Button>
+            </div>
+          </>
+        )
+      }
     </div>
   );
 }

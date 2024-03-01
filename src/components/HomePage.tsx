@@ -4,6 +4,7 @@ import { IProduct } from "../interfaces";
 export default function HomePage() {
   const { data, error, isLoading } = useGetAllProductsQuery({});
 
+  console.log(data);
   const renderProducts = isLoading ? (
     <div>Loading...</div>
   ) : error ? (
@@ -11,9 +12,12 @@ export default function HomePage() {
   ) : (
     <div className="products">
       {data?.map((product: IProduct) => (
-        <div key={product.id}>
+        <div className="product" key={product.id}>
           <h3>{product.title}</h3>
-          <p>${product.price}</p>
+          <div className="img-wrapper">
+            <img src={product.image} alt={product.title} />
+          </div>
+          <div className="price">${product.price}</div>
         </div>
       ))}
     </div>

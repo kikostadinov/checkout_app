@@ -6,18 +6,18 @@ export default function Header() {
   const cart = useSelector((state: IRootState) => state.cart.items);
 
   return (
-    <div className="header" style={{ display: 'flex' }}>
-      <nav style={{ display: 'flex' }}>
+    <header>
+      <nav>
         <Link to="/">
           <h2>Online Store</h2>
         </Link>
         <Link to="/cart">
-          <div className="">
-            <span>Cart </span>
-            <span>{cart.length}</span>
+          <div className="nav-cart">
+            <span>Cart</span>
+            <span className='nav-quantity'>{cart.length}</span>
           </div>
         </Link>
       </nav>
-    </div>
+    </header>
   );
 }

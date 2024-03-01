@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { IProduct, IRootState } from '../interfaces';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from 'antd';
 
 export default function CartPage() {
   const cart = useSelector((state: IRootState) => state.cart.items);
@@ -12,13 +13,38 @@ export default function CartPage() {
 
   return (
     <div className="cart-page">
-      <h2>Cart</h2>
-      <ul>
-        {cart.map((item: IProduct) => (
-          <li key={item.id}>{item.title} - ${item.price}</li>
-        ))}
-      </ul>
-      <button onClick={handleGoToCheckout}>Checkout</button>
+      {cart.length === 0 ?
+        (
+          <div className="cart-empty">
+            <div>Your cart is empty</div>
+            <div className="start-shopping">
+              <Link to="/">
+                Start to shopping
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className='cart-items'>
+              {cart.map((item: IProduct) => (
+                <div className="cart-product" key={item.id}>
+                  <h3>{item.title}</h3>
+                  <div className="img-wrapper">
+                    <img src={item.image} alt={item.title} />
+                  </div>
+                  <div className="price">${item.price}</div>
+                </div>
+              ))}
+            </div>
+            <div className="btn-container">
+              <Button
+                type='primary'
+                onClick={handleGoToCheckout}>
+                Checkout
+              </Button>
+            </div>
+          </>
+        )}
     </div>
   );
 }
