@@ -16,6 +16,7 @@ interface IFormData {
   email: string;
   country: string;
   city: string;
+  street: string;
 }
 
 export default function StepOne() {
@@ -23,7 +24,7 @@ export default function StepOne() {
   const dispatch = useDispatch();
   const cities: string[] = useSelector(selectCitiesOfSelectedCountry);
   const [userData, setUserData] = useState<IFormData>(
-    { name: '', email: '', country: '', city: '' }
+    { name: '', email: '', country: '', city: '', street: '' }
   );
   const { control, trigger, getValues, handleSubmit, formState: { errors, isValidating },
   } = useForm<IFormData>({ defaultValues: userData });
@@ -112,49 +113,66 @@ export default function StepOne() {
             <InputField
               label="Email"
               name="email"
-              rules={{ required: "Email is required" }}
+              rules={{
+                required: "Email is required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: 'Invalid email address'
+                }
+              }}
               control={control}
               errors={errors}
               placeholder="Enter your email"
             />
 
-            <Form.Item label="Country" rules={[{ required: true }]}>
-              <Controller
-                name="country"
-                control={control}
-                render={({ field }) => (
-                  <AutoComplete
-                    options={countriesOptions}
-                    style={{ width: 200 }}
-                    onSelect={handleCountryChange}
-                    filterOption={(inputValue, option) =>
-                      option?.value?.toString().toUpperCase().indexOf(inputValue.toString().toUpperCase()) !== -1}
-                    placeholder="Select country"
-                    {...field}
-                  />
-                )}
-              />
-              {errors.country && <p role="alert">{errors.country.message}</p>}
-            </Form.Item>
+            <fieldset>
+              <label>Address</label>
+              <Form.Item label="Country" rules={[{ required: true }]}>
+                <Controller
+                  name="country"
+                  control={control}
+                  render={({ field }) => (
+                    <AutoComplete
+                      options={countriesOptions}
+                      style={{ width: 200 }}
+                      onSelect={handleCountryChange}
+                      filterOption={(inputValue, option) =>
+                        option?.value?.toString().toUpperCase().indexOf(inputValue.toString().toUpperCase()) !== -1}
+                      placeholder="Select country"
+                      {...field}
+                    />
+                  )}
+                />
+                {errors.country && <p role="alert">{errors.country.message}</p>}
+              </Form.Item>
 
-            <Form.Item label="City" rules={[{ required: true }]}>
-              <Controller
-                name="city"
+              <Form.Item label="City" rules={[{ required: true }]}>
+                <Controller
+                  name="city"
+                  control={control}
+                  render={({ field }) => (
+                    <AutoComplete
+                      options={cityOptions}
+                      style={{ width: 200 }}
+                      onSelect={handleCountryChange}
+                      filterOption={(inputValue, option) =>
+                        option?.value?.toString().toUpperCase().indexOf(inputValue.toString().toUpperCase()) !== -1}
+                      placeholder="Select city"
+                      {...field}
+                    />
+                  )}
+                />
+                {errors.city && <p role="alert">{errors.city.message}</p>}
+              </Form.Item>
+
+              <InputField
+                label="Street"
+                name="street"
+                rules={{ required: "Street is required" }}
                 control={control}
-                render={({ field }) => (
-                  <AutoComplete
-                    options={cityOptions}
-                    style={{ width: 200 }}
-                    onSelect={handleCountryChange}
-                    filterOption={(inputValue, option) =>
-                      option?.value?.toString().toUpperCase().indexOf(inputValue.toString().toUpperCase()) !== -1}
-                    placeholder="Select city"
-                    {...field}
-                  />
-                )}
+                errors={errors}
               />
-              {errors.city && <p role="alert">{errors.city.message}</p>}
-            </Form.Item>
+            </fieldset>
 
             <Button onClick={() => navigate('/')}>
               Back

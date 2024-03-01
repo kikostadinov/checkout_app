@@ -19,6 +19,7 @@ export interface IRootState {
 export interface IAddress {
   country: string;
   city: string;
+  street: string;
 }
 
 export interface IUser extends IAddress {

@@ -20,6 +20,7 @@ export default function StepTwo({ userData, control, errors }: IStepTwoProps) {
             <p>{userData.email}</p>
             <p>{userData.country}</p>
             <p>{userData.city}</p>
+            <p>{userData.street}</p>
           </div>
         )
         : null}
