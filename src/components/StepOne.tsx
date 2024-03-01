@@ -5,7 +5,7 @@ import { selectCitiesOfSelectedCountry } from '../features/countriesSlice';
 import { Controller, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import InputField from './InputField';
-import { AutoComplete, Button, Form } from 'antd';
+import { AutoComplete, Button, Form, Modal } from 'antd';
 import StepTwo from './StepTwo';
 
 interface IFormData {
@@ -49,6 +49,18 @@ export default function StepOne() {
     setUserData(values);
   };
 
+  const handleOnPrev = () => {
+    setShowNextStep(false);
+  };
+
+  const handleConfirm = () => {
+    console.log('Order completed');
+  };
+
+  const handleCancel = () => {
+    console.log('Order canceled');
+  };
+
   return (
     <div className="step-one">
       <form>
@@ -59,6 +71,21 @@ export default function StepOne() {
               control={control}
               errors={errors}
             />
+            <div className="btn-container">
+              <Button onClick={handleOnPrev}>
+                Back
+              </Button>
+              <Button
+                type="primary"
+                onClick={() => Modal.confirm({
+                  title: 'Confirm details',
+                  onOk: () => handleConfirm(),
+                  onCancel: () => handleCancel(),
+                })}
+              >
+                Complete the order
+              </Button>
+            </div>
           </>
         ) : (
           <>
