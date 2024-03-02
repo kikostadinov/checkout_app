@@ -18,23 +18,33 @@ export default function StepTwo({ userData, control, errors }: IStepTwoProps) {
           <div className="user-data">
             <Row>
               <Col span={6}>Name:</Col>
-              <Col>{userData.name}</Col>
+              <Col>
+                <i>{userData.name}</i>
+              </Col>
             </Row>
             <Row>
               <Col span={6}>Email:</Col>
-              <Col>{userData.email}</Col>
+              <Col>
+                <i>{userData.email}</i>
+              </Col>
             </Row>
             <Row>
               <Col span={6}>Country:</Col>
-              <Col>{userData.country}</Col>
+              <Col>
+                <i>{userData.country}</i>
+              </Col>
             </Row>
             <Row>
               <Col span={6}>City:</Col>
-              <Col>{userData.city}</Col>
+              <Col>
+                <i>{userData.city}</i>
+              </Col>
             </Row>
             <Row>
               <Col span={6}>Street:</Col>
-              <Col>{userData.street}</Col>
+              <Col>
+                <i>{userData.street}</i>
+              </Col>
             </Row>
             <Form.Item
               label={"Promo code"}

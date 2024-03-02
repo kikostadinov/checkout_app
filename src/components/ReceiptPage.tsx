@@ -35,7 +35,7 @@ export default function ReceiptPage() {
             </ul>
             <div className="final-price">
               <div>VAT: {vatPercentage}%</div>
-              <div>
+              <div className="promo-code">
                 <i>Promo code: - {promoCodePersentage}%</i>
               </div>
               <div>

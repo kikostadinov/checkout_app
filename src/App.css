@@ -63,18 +63,20 @@ nav h2 {
 
 .nav-cart {
   display: flex;
-  align-items: center;
+}
+
+.nav-cart-icon {
+  display: flex;
 }
 
 .nav-quantity {
   display: flex;
-  align-items: center;
   justify-content: center;
-  height: 20px;
-  width: 20px;
+  height: 15px;
+  width: 15px;
   border-radius: 50%;
   background: #fff;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 700;
   color: black;
   margin-left: 5px;
@@ -183,8 +185,11 @@ nav h2 {
   text-align: center;
 }
 
+.step-one h3,
 .step-two h3 {
+  text-align: center;
   font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .step-two .user-data {
@@ -234,4 +239,8 @@ nav h2 {
   display: flex;
   flex-direction: column;
   align-items: end;
+}
+
+.receipt-page .promo-code {
+  color: #f92626;
 }

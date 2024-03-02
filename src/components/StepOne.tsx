@@ -106,7 +106,7 @@ export default function StepOne() {
           </>
         ) : (
           <>
-            <h2>User details</h2>
+            <h3>User details</h3>
             <InputField
               label={"Name"}
               name="name"
