@@ -1,7 +1,15 @@
 import { Form, Input } from "antd";
-import { Controller } from "react-hook-form";
+import { Controller, FieldErrors } from "react-hook-form";
+import { IFormData } from "./StepOne";
 
-export default function InputField({ label, name, errors, ...rest }) {
+export default function InputField({
+  label, name, errors, ...rest
+}: {
+  label: string,
+  name: string,
+  errors: FieldErrors<IFormData>,
+  [key: string]: unknown
+}) {
 
   return (
     <Form.Item label={label}>
@@ -10,7 +18,12 @@ export default function InputField({ label, name, errors, ...rest }) {
         render={({ field }) => <Input {...field} />}
         {...rest}
       />
-      {errors[name] && <p className="error-msg" role="alert">{errors[name].message}</p>}
+      {errors && errors[name as keyof IFormData] &&
+        <p className="error-msg" role="alert">
+          {
+            errors[name as keyof IFormData]?.message ?? ""
+          }
+        </p>}
     </Form.Item>
   );
 }

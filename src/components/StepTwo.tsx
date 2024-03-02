@@ -1,10 +1,11 @@
 import { IUser } from "../interfaces";
 import { Control, FieldValues, DeepMap, FieldError, Controller } from 'react-hook-form';
 import { Col, Form, Input, Row } from 'antd';
+import { IFormData } from "./StepOne";
 
 interface IStepTwoProps {
   userData: IUser;
-  control: Control<FieldValues>;
+  control: Control<IFormData>;
   errors: DeepMap<FieldValues, FieldError>;
 }
 

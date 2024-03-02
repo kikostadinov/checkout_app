@@ -11,12 +11,13 @@ import { ICountry, IRootState } from '../interfaces';
 import { useNavigate } from 'react-router-dom';
 import { addUserData } from '../features/userSlice';
 
-interface IFormData {
+export interface IFormData {
   name: string;
   email: string;
   country: string;
   city: string;
   street: string;
+  promoCode?: string;
 }
 
 const layout = {
