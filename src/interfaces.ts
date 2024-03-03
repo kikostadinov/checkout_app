@@ -8,6 +8,7 @@ export interface IProduct {
 export interface ICartState {
   items: IProduct[];
   totalAmount: number;
+  promoCode?: null | string;
   status: null | 'pending' | 'fulfilled' | 'rejected';
   error: null | string | undefined;
 }
@@ -39,7 +40,6 @@ export interface IAddress {
 export interface IUser extends IAddress {
   name: string;
   email: string;
-  promoCode?: string;
 }
 
 export interface ICountry {

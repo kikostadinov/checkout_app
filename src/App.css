@@ -245,14 +245,15 @@ main.dark .product {
   font-weight: 500;
 }
 
-.step-two .user-data {
+.step-two .user-data,
+.step-two .promo-code {
   max-width: 500px;
   font-size: 1rem;
   font-weight: 500;
 }
 
-.user-data .ant-col,
-.user-data .ant-col label {
+.step-two .ant-col,
+.step-two .ant-col label {
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
   text-align: left;

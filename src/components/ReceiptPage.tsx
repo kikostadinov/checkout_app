@@ -5,16 +5,15 @@ import { Button } from "antd";
 
 export default function ReceiptPage() {
   const cart = useSelector((state: IRootState) => state.cart);
-  const user = useSelector((state: IRootState) => state.user.items);
   const navigate = useNavigate();
 
   const VAT_MULTIPLIER: number = 1.2;
   const vatPercentage = Math.round((VAT_MULTIPLIER - 1) * 100);
 
-  const promoCodeDiscount = user.promoCode ? 0.3 : 0;
+  const promoCodeDiscount = cart.promoCode ? 0.3 : 0;
   const promoCodePersentage = Math.round(promoCodeDiscount * 100);
 
-  const totalAmount = user.promoCode ?
+  const totalAmount = cart.promoCode ?
     cart.totalAmount * VAT_MULTIPLIER * (1 - promoCodeDiscount) : cart.totalAmount * VAT_MULTIPLIER;
 
   return (
@@ -36,7 +35,7 @@ export default function ReceiptPage() {
             </ul>
             <div className="final-price">
               <div>VAT: {vatPercentage}%</div>
-              {user.promoCode ?
+              {cart.promoCode ?
                 <div className="promo-code">
                   <i>Promo code: - {promoCodePersentage}%</i>
                 </div>
