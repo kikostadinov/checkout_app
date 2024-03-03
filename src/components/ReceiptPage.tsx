@@ -7,14 +7,14 @@ export default function ReceiptPage() {
   const cart = useSelector((state: IRootState) => state.cart);
   const navigate = useNavigate();
 
-  const VAT_MULTIPLIER: number = 1.2;
-  const vatPercentage = Math.round((VAT_MULTIPLIER - 1) * 100);
+  const VAT_MULTIPLIER: number = 0.2;
+  const vatAmount = (cart.totalAmount * VAT_MULTIPLIER).toFixed(2);
 
   const promoCodeDiscount = cart.promoCode ? 0.3 : 0;
-  const promoCodePersentage = Math.round(promoCodeDiscount * 100);
+  const discountedValue = (cart.totalAmount * promoCodeDiscount).toFixed(2);
 
   const totalAmount = cart.promoCode ?
-    cart.totalAmount * VAT_MULTIPLIER * (1 - promoCodeDiscount) : cart.totalAmount * VAT_MULTIPLIER;
+    cart.totalAmount * (1 - promoCodeDiscount) : cart.totalAmount * VAT_MULTIPLIER;
 
   return (
     <div className="receipt-page">
@@ -34,10 +34,11 @@ export default function ReceiptPage() {
               ))}
             </ul>
             <div className="final-price">
-              <div>VAT: {vatPercentage}%</div>
+              <div>Subtotal: ${cart.totalAmount}</div>
+              <div>VAT: ${vatAmount}</div>
               {cart.promoCode ?
                 <div className="promo-code">
-                  <i>Promo code: - {promoCodePersentage}%</i>
+                  <i>{cart.promoCode}: ${discountedValue}</i>
                 </div>
                 : null
               }
