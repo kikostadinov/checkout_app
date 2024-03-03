@@ -18,9 +18,16 @@ export interface IUserState {
   error: null | string | undefined;
 }
 
+export interface IThemeState {
+  value: string;
+  status: null | 'pending' | 'fulfilled' | 'rejected';
+  error: null | string | undefined;
+}
+
 export interface IRootState {
   cart: ICartState;
   user: IUserState;
+  theme: IThemeState;
 }
 
 export interface IAddress {

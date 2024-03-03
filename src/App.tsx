@@ -7,11 +7,14 @@ import CheckoutPage from './components/CheckoutPage';
 
 import './App.css'
 import ReceiptPage from './components/ReceiptPage';
+import { useSelector } from 'react-redux';
+import { IRootState } from './interfaces';
 
 function App() {
+  const theme = useSelector((state: IRootState) => state.theme.value);
 
   return (
-    <>
+    <main className={`${theme}`}>
       <Router>
         <Header />
         <Routes>
@@ -22,7 +25,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
-    </>
+    </main>
   )
 }
 
