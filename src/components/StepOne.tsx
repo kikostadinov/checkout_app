@@ -80,6 +80,8 @@ export default function StepOne() {
     handleSubmit(onSubmit)();
   };
 
+  console.log(errors, 'errors');
+
   return (
     <div className="step-one">
       <Form {...layout}>
@@ -182,7 +184,7 @@ export default function StepOne() {
               </Button>
               <Button
                 type="primary"
-                disabled={cart.items.length === 0}
+                disabled={cart.items.length === 0 || !(Object.keys(errors).length === 0)}
                 onClick={() => {
                   handleButtonClick();
                   setTriggered(true);
