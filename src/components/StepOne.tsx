@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import InputField from './InputField';
 import { AutoComplete, Button, Form, Modal } from 'antd';
 import StepTwo from './StepTwo';
-import { ICountry } from '../interfaces';
+import { ICountry, IRootState } from '../interfaces';
 import { useNavigate } from 'react-router-dom';
 import { addUserData } from '../features/userSlice';
 
@@ -28,6 +28,7 @@ export default function StepOne() {
   const { data: countries, isFetching } = useGetCountriesQuery({});
   const dispatch = useDispatch();
   const cities: string[] = useSelector(selectCitiesOfSelectedCountry);
+  const cart = useSelector((state: IRootState) => state.cart);
   const [userData, setUserData] = useState<IFormData>(
     { name: '', email: '', country: '', city: '', street: '' }
   );
@@ -183,7 +184,7 @@ export default function StepOne() {
               <Button
                 type="primary"
                 disabled={
-                  // cart.items.length === 0
+                  cart.items.length === 0 ||
                   !(Object.keys(errors).length === 0)
                 }
                 onClick={() => {
